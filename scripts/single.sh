@@ -86,8 +86,8 @@ for ind in ${indiv}; do
                         echo 'SREBF1 Count:' ${srebf1_count}
                         echo 'PDK1 Count:' ${pdk1_cnt}
                 done
-        echo -e "${ind}\t${total}\t${insr_cnt}\t${pparg_count}\t${acp_count}\t${slc2ar_count}\t${srebf1_count}" >> total_single.txt
         fi
+        echo -e "${ind}\t${total}\t${insr_cnt}\t${pparg_count}\t${acp_count}\t${slc2ar_count}\t${srebf1_count}" >> total_single.txt
 done
 
 
