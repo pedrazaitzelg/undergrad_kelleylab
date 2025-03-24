@@ -12,7 +12,7 @@
 #SBATCH --output=slurm_%j.out            # Standard output and error log
 #SBATCH --error=slurm_%j.err             # Standard output and error log
 #SBATCH --no-requeue                     # don't requeue the job upon NODE_FAIL
-#SBATCH --array=[1-659]                    # sets array - 658
+#SBATCH --array=[1-1]                    # sets array - 658
 
 
 echo -e "INDV\tTOTAL\tINSR\tPPARG\tACP5\tSLC2A4\tSREBF1" > total_single.txt
@@ -86,8 +86,8 @@ for ind in ${indiv}; do
                         echo 'SREBF1 Count:' ${srebf1_count}
                         echo 'PDK1 Count:' ${pdk1_cnt}
                 done
-        fi
         echo -e "${ind}\t${total}\t${insr_cnt}\t${pparg_count}\t${acp_count}\t${slc2ar_count}\t${srebf1_count}" >> total_single.txt
+        fi
 done
 
 
