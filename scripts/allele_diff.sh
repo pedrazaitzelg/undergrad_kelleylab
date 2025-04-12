@@ -36,6 +36,7 @@ for ((i=0; i<${#locations[@]}; i++)); do  #sets 'i' as first location in array; 
         location_1=${locations[i]}
         location_2=${locations[j]}
 
+        # outputs to .out / .err files to check to make sure variables are working
         echo "Comparing $location_1 to $location_2..."
 
         # Define allele frequency file paths
