@@ -24,16 +24,19 @@ LOC=$(echo ${LINE} | awk ' {print $1; } ' )
 LINE2=$(sed -n "${SLURM_ARRAY_TASK_ID}"p /hb/groups/kelley_training/itzel/population_bears_proj24/vcftool_out/corrected_vcf/singleton.singletons)
 INDV=$(echo ${LINE} | awk ' {print $5; } ' ) #print indv name to run through
 
+
+SINGLETON=/hb/groups/kelley_training/itzel/population_bears_proj24/vcftool_out/corrected_vcf/singleton.singletons
+
 LOC_FILE=${LOC}_indiv.txt #location file with individual names
 
-# Loop through each line (individual) in singleton file
-while read -r LINE2; do
-    INDV=$(echo $LINE2 | awk 'NR > 1 {print $5}')  # Adjust column index as needed
+
+# Loop through each individual in the singleton file (skip header)
+tail -n +2 "$SINGLETON" | while read -r LINE2; do
+    INDV=$(echo "$LINE2" | awk '{print $5}')
     LOCATIONS=()
 
-    # Loop through all location files listed in the location list
     while read -r LINE; do
-        LOC=$(echo $LINE | awk '{print $1}')
+        LOC=$(echo "$LINE" | awk '{print $1}')
         LOC_FILE="${LOC}_indiv.txt"
 
         if grep -qw "$INDV" "$LOC_FILE"; then
@@ -41,13 +44,7 @@ while read -r LINE2; do
         fi
     done < "$LOCATION_LIST"
 
-    # Join all found locations by comma
     LOC_STR=$(IFS=, ; echo "${LOCATIONS[*]}")
-
-    # Output original singleton line + location(s)
-    echo -e "$line\t$LOC_STR" >> "single_fixed"
-
-done < "$LINE2"
-
-
+    echo -e "$LINE2\t$LOC_STR" >> "single_fixed"
+done
 
