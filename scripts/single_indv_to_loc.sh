@@ -26,11 +26,9 @@ INDV=$(echo ${LINE} | awk ' {print $5; } ' ) #print indv name to run through
 
 LOC_FILE=${LOC}_indiv.txt #location file with individual names
 
-
-
 # Loop through each line (individual) in singleton file
 while read -r LINE2; do
-    INDV=$(echo $LINE2 | awk '{print $5}')  # Adjust column index as needed
+    INDV=$(echo $LINE2 | awk 'NR > 1 {print $5}')  # Adjust column index as needed
     LOCATIONS=()
 
     # Loop through all location files listed in the location list
