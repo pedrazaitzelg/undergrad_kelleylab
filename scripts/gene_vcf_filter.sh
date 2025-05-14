@@ -25,12 +25,17 @@
 
 #awk -F'|' ... filters based on effect, impact, and gene, and prints the desired fields.
 
-grep 'ANN=' Yaak_filtered.vcf.recode.vcf | \
+#set variables
+LINE=$(sed -n "${SLURM_ARRAY_TASK_ID}"p /hb/groups/kelley_training/itzel/population_bears_proj24/genes_analysis/populations/locations.txt)
+LOC=$(echo ${LINE} | awk ' {print $1; } ' )
+
+
+grep 'ANN=' ${LOC}_filtered.vcf.recode.vcf | \
 cut -f8 | \
 tr ';' '\n' | \
 grep '^ANN=' | \
 cut -d= -f2- | \
 tr ',' '\n' | \
-awk -F'|' '$2 == "synonymous_variant" && $3 == "LOW" && $4 == "PPARG" { print $2, $3, $4, $7 }' \
-> pparg_synonymous_variants.txt
+awk -F'|' '$4 == "PPARG" { print $2, $3, $4, $7 }' \
+> pparg_yaak_variants.txt
 
