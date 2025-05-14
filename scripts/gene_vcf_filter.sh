@@ -37,5 +37,5 @@ grep '^ANN=' | \
 cut -d= -f2- | \
 tr ',' '\n' | \
 awk -F'|' '$4 == "PPARG" { print $2, $3, $4, $7 }' \
-> pparg_yaak_variants.txt
+> pparg_${LOC}_variants.txt
 
