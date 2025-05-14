@@ -27,9 +27,6 @@ INDV=$(echo ${LINE} | awk ' {print $5; } ' ) #print indv name to run through
 LOC_FILE=${LOC}_indiv.txt #location file with individual names
 
 
-#search location files for INDV name
-grep ${INDV} ${LOC_FILE}
-
 
 # Loop through each line (individual) in singleton file
 while read -r LINE2; do
