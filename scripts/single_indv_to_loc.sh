@@ -44,6 +44,13 @@ tail -n +2 "$SINGLETON" | while read -r LINE2; do
         fi
     done < "$LOCATION_LIST"
 
+
+awk -F'\t' '
+    NR==FNR { loc[$1]=$2; next }
+    FNR==1 { print $0 "\tLOCATION"; next }
+    { print $0 "\t" (loc[$5] ? loc[$5] : "Unknown") }
+' single_loc.txt singleton.singletons > output.txt
+
     LOC_STR=$(IFS=, ; echo "${LOCATIONS[*]}")
     echo -e "$LINE2\t$LOC_STR" >> "single_fixed"
 done
