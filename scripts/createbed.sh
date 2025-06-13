@@ -16,4 +16,9 @@
 
 awk -v chrom_value="NW_026622808.1" 'BEGIN {OFS="\t"} NR==1 {print "CHROM", $2, $3; next} {print chrom_value, $2, $3}' insr_exons.bed > insr_exons_fix.bed
 
-
+#add locations
+awk -F'\t' '  
+    NR==FNR { loc[$1]=$2; next }
+    FNR==1 { print $0 "\tLOCATION"; next }
+    { print $0 "\t" (loc[$5] ? loc[$5] : "Unknown") }
+' single_loc.txt insr_exon.singletons > insr_loc_exon.singletons
